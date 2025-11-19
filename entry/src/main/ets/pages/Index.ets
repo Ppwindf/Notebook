@@ -18,9 +18,14 @@ struct Index {
   }
   stopCountdown() {
     clearInterval(this.timerId)
-    router.replaceUrl({
-      url: 'pages/LoginPage'
-    })
+    try {
+      router.replaceUrl({
+        url: 'pages/LoginPage'
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error('跳转登录页面失败: ', message);
+    }
   }
 
   build() {

@@ -556,10 +556,15 @@ struct ProfilePage {
 
   showChangePassword() {
     // 跳转到修改密码页面
-    router.pushUrl({
-      url: 'pages/ChangePasswordPage',
-      params: { userId: this.userId } as DiaryEditParams
-    });
+    try {
+      router.pushUrl({
+        url: 'pages/ChangePasswordPage',
+        params: { userId: this.userId } as DiaryEditParams
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error('跳转修改密码页面失败: ', message);
+    }
   }
 
 
@@ -585,6 +590,11 @@ struct ProfilePage {
 
   logout() {
     // 返回登录页面
-    router.replaceUrl({ url: 'pages/LoginPage' });
+    try {
+      router.replaceUrl({ url: 'pages/LoginPage' });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error('返回登录页面失败: ', message);
+    }
   }
 }
